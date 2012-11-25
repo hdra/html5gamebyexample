@@ -1,29 +1,47 @@
+var pingpong = {};
+pingpong.pressedKeys = [];
 var KEY = {
-    UP:38,
+    UP: 38,
     DOWN: 40,
-    W:87,
-    S:83
+    W: 87,
+    S: 83
 }
 
 $(document).ready(function(){
+    pingpong.timer = setInterval(gameloop, 30);
+
     $(document).keydown(function(e){
-        switch(e.which){
-            case KEY.UP:
-                var top = parseInt($("#paddleB").css("top"));
-                $("#paddleB").css("top", top-5);
-                break;
-            case KEY.DOWN:
-                var top = parseInt($("#paddleB").css("top"));
-                $("#paddleB").css("top", top+5);
-                break;
-            case KEY.W:
-                var top = parseInt($("#paddleA").css("top"));
-                $("#paddleA").css("top", top-5);
-                break;
-            case KEY.S:
-                var top = parseInt($("#paddleA").css("top"));
-                $("#paddleA").css("top", top+5);
-                break;
-        }
+        pingpong.pressedKeys[e.which] = true;
     });
+
+    $(document).keyup(function(e){
+        pingpong.pressedKeys[e.which] = false;
+    });
+
+    function gameloop(){
+        movePaddles();
+    }
+
+    function movePaddles(){
+        if(pingpong.pressedKeys[KEY.UP]){
+            var top = parseInt($("#paddleB").css("top"));
+            $("#paddleB").css("top",top-5);
+        }
+
+        if(pingpong.pressedKeys[KEY.DOWN]){
+            var top = parseInt($("#paddleB").css("top"));
+            $("#paddleB").css("top",top+5);
+        }
+
+        if(pingpong.pressedKeys[KEY.W]){
+            var top = parseInt($("#paddleA").css("top"));
+            $("#paddleA").css("top",top-5);
+        }
+
+        if(pingpong.pressedKeys[KEY.S]){
+            var top = parseInt($("#paddleA").css("top"));
+            $("#paddleA").css("top",top+5);
+        }
+    }
+
 });
