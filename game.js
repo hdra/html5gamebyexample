@@ -6,7 +6,10 @@ $(document).ready(function(){
         S: 83
     }
 
-    var pingpong = {};
+    var pingpong = {
+        scoreA: 0,
+        scoreB: 0
+    };
     pingpong.pressedKeys = [];
     pingpong.ball = {
         speed: 5,
@@ -48,6 +51,8 @@ $(document).ready(function(){
         if( ball.x + ball.speed * ball.directionX > playGroundWidth){
             // playerB lost
             // reset the ball
+            pingpong.scoreA++;
+            $("#scoreA").html(pingpong.scoreA);
             ball.x = 250;
             ball.y = 100;
             $("#ball").css({
@@ -61,6 +66,8 @@ $(document).ready(function(){
         if( ball.x + ball.speed * ball.directionX < 0){
             // playerA lost
             // reset the ball
+            pingpong.scoreB++;
+            $("#scoreB").html(pingpong.scoreB);
             ball.x = 250;
             ball.y = 100;
             $("#ball").css({
